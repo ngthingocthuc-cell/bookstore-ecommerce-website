@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sách Văn Học</title>
+
+<!-- Icon Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{font-family:Arial;margin:0;background:#f4f4f4}
+header{background:#2c3e50;color:#fff;text-align:center;padding:15px}
+nav{background:#34495e;text-align:center;padding:10px}
+nav a{color:#fff;text-decoration:none;margin:0 15px;font-weight:bold}
+nav a:hover{color:yellow}
+.container{width:95%;margin:auto;padding:20px}
+.book-list{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.book{background:#fff;padding:10px;border-radius:8px;box-shadow:0 0 5px gray;text-align:center;cursor:pointer;transition:0.3s}
+.book:hover{transform:scale(1.05)}
+.book img{width:100%;height:220px;object-fit:cover}
+.price{color:red;font-weight:bold}
+footer{background:#2c3e50;color:#fff;text-align:center;padding:10px;margin-top:20px}
+
+/* ===== Cart Icon ===== */
+.cart-link{
+position:relative;
+display:inline-block;
+font-size:22px;
+}
+
+.cart-count{
+position:absolute;
+top:-6px;
+right:-10px;
+background:#ff424f;
+color:white;
+font-size:11px;
+min-width:18px;
+height:18px;
+padding:0 5px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+border:2px solid #34495e;
+box-sizing:border-box;
+}
+
+.cart-count:empty{
+display:none;
+}
+
+/* ===== Detail Box ===== */
+.detail-box{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:20px;
+width:400px;
+box-shadow:0 0 10px black;
+display:none;
+z-index:1000;
+border-radius:10px;
+}
+
+.detail-box button{
+margin-top:10px;
+padding:8px 12px;
+cursor:pointer;
+}
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<header><h1>SÁCH VĂN HỌC</h1></header>
+
+<nav>
+<a href="vanhoc.html">VĂN HỌC</a>
+<a href="kynang.html">KỸ NĂNG</a>
+<a href="kinhte.html">KINH TẾ</a>
+<a href="thieunhi.html">THIẾU NHI</a>
+
+<a href="#" onclick="showCart()" class="cart-link">
+<i class="fa-solid fa-cart-shopping"></i>
+<span id="cartCount" class="cart-count"></span>
+</a>
+</nav>
+
+<div class="container">
+<div class="book-list">
+
+<!-- 10 TÁC PHẨM -->
+
+<div class="book" onclick="showDetail('Lão Hạc','Nam Cao',45000,'Phản ánh số phận người nông dân nghèo.')">
+<img src="LAOHAC.jpg">
+<h4>Lão Hạc</h4><p>Nam Cao</p><p class="price">45.000đ</p>
+</div>
+
+<div class="book" onclick="showDetail('Chí Phèo','Nam Cao',48000,'Bi kịch tha hóa của người nông dân.')">
+<img src="CHIPHEO.jpg">
+<h4>Chí Phèo</h4><p>Nam Cao</p><p class="price">48.000đ</p>
+</div>
+
+<div class="book" onclick="showDetail('Tắt Đèn','Ngô Tất Tố',50000,'Phê phán xã hội phong kiến.')">
+<img src="TATDEN.webp">
+<h4>Tắt Đèn</h4><p>Ngô Tất Tố</p><p class="price">50.000đ</p>
+</div>
+
+<div class="book" onclick="showDetail('Số Đỏ','Vũ Trọng Phụng',60000,'Tiểu thuyết trào phúng nổi tiếng.')">
+<img src="SODO.jpg">
+<h4>Số Đỏ</h4><p>Vũ Trọng Phụng</p><p class="price">60.000đ</p>
+</div>
+
+<div class="book" onclick="showDetail('Dế Mèn Phiêu Lưu Ký','Tô Hoài',55000,'Tác phẩm thiếu nhi kinh điển.')">
+<img src="DEMENPLK.jpg">
+<h4>Dế Mèn Phiêu Lưu Ký</h4><p>Tô Hoài</p><p class="price">55.000đ</p>
+</div>
+
+<div class="book" onclick="showDetail('Nhật Ký Trong Tù','Hồ Chí Minh',40000,'Tập thơ viết trong tù.')">
+<img src="NHATKYTRONGTU.jpg">
+<h4>Nhật Ký Trong Tù</h4><p>Hồ Chí Minh</p><p class="price">40.000đ</p>
+</div>
+
+<div class="book" onclick="showDetail('Vợ Nhặt','Kim Lân',42000,'Tác phẩm về nạn đói 1945.')">
+<img src="VONHAT.webp">
+<h4>Vợ Nhặt</h4><p>Kim Lân</p><p class="price">42.000đ</p>
+</div>
+
+<div class="book" onclick="showDetail('Rừng Xà Nu','Nguyễn Trung Thành',45000,'Kháng chiến chống Mỹ.')">
+<img src="RUNGXANU.jpg">
+<h4>Rừng Xà Nu</h4><p>Nguyễn Trung Thành</p><p class="price">45.000đ</p>
+</div>
+
+<div class="book" onclick="showDetail('Hai Đứa Trẻ','Thạch Lam',38000,'Truyện ngắn cảm xúc.')">
+<img src="HAIDUATRE.webp">
+<h4>Hai Đứa Trẻ</h4><p>Thạch Lam</p><p class="price">38.000đ</p>
+</div>
+
+<div class="book" onclick="showDetail('Tuổi Thơ Dữ Dội','Phùng Quán',65000,'Thiếu niên trong kháng chiến.')">
+<img src="TUỔI THƠ DỮ DỘI.webp">
+<h4>Tuổi Thơ Dữ Dội</h4><p>Phùng Quán</p><p class="price">65.000đ</p>
+</div>
+
+</div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeDetail()"></div>
+<div class="detail-box" id="detailBox"></div>
+
+<footer>© 2026 Nhà Sách Online</footer>
+
+<script>
+let currentBook=null;
+let overlay=document.getElementById("overlay");
+let detailBox=document.getElementById("detailBox");
+
+function showDetail(name,author,price,desc){
+currentBook={name,author,price};
+overlay.style.display="block";
+detailBox.style.display="block";
+detailBox.innerHTML=`
+<h2>${name}</h2>
+<p><b>Tác giả:</b> ${author}</p>
+<p><b>Giá:</b> ${price.toLocaleString()}đ</p>
+<p>${desc}</p>
+<button onclick="addToCart()">Thêm vào giỏ</button>
+<button onclick="closeDetail()">Đóng</button>
+`;
+}
+
+function closeDetail(){
+overlay.style.display="none";
+detailBox.style.display="none";
+}
+
+function addToCart(){
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+cart.push(currentBook);
+localStorage.setItem("cart",JSON.stringify(cart));
+updateCartCount();
+alert("Đã thêm vào giỏ hàng!");
+}
+
+function updateCartCount(){
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let count=cart.length;
+let badge=document.getElementById("cartCount");
+if(count>0){
+badge.innerText = count>99 ? "99+" : count;
+}else{
+badge.innerText="";
+}
+}
+
+
+updateCartCount();
+</script>
+
+</body>
+</html>

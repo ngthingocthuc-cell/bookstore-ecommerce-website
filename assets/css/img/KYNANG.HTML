@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sách Kỹ Năng</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+body{font-family:Arial;margin:0;background:#f4f4f4}
+header{background:#2c3e50;color:#fff;text-align:center;padding:15px}
+nav{background:#34495e;text-align:center;padding:10px}
+nav a{color:#fff;text-decoration:none;margin:0 15px;font-weight:bold}
+nav a:hover{color:yellow}
+.container{width:95%;margin:auto;padding:20px}
+.book-list{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.book{background:#fff;padding:10px;border-radius:8px;box-shadow:0 0 5px gray;text-align:center;cursor:pointer;transition:0.3s}
+.book:hover{transform:scale(1.05)}
+.book img{width:100%;height:220px;object-fit:cover}
+.price{color:red;font-weight:bold}
+footer{background:#2c3e50;color:#fff;text-align:center;padding:10px;margin-top:20px}
+
+/* ==== CART GIỐNG TRANG VĂN HỌC ==== */
+.cart-link{position:relative;display:inline-block;font-size:22px;}
+.cart-count{
+position:absolute;
+top:-6px;
+right:-10px;
+background:#ff424f;
+color:white;
+font-size:11px;
+min-width:18px;
+height:18px;
+padding:0 5px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+border:2px solid #34495e;
+box-sizing:border-box;
+}
+.cart-count:empty{display:none;}
+
+.detail-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:20px;width:400px;box-shadow:0 0 10px black;display:none;z-index:1000;border-radius:10px;}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;}
+</style>
+</head>
+<body>
+
+<header><h1>SÁCH KỸ NĂNG</h1></header>
+
+<nav>
+<a href="vanhoc.html">VĂN HỌC</a>
+<a href="kynang.html">KỸ NĂNG</a>
+<a href="kinhte.html">KINH TẾ</a>
+<a href="thieunhi.html">THIẾU NHI</a>
+
+<a href="#" onclick="showCart()" class="cart-link">
+<i class="fa-solid fa-cart-shopping"></i>
+<span id="cartCount" class="cart-count"></span>
+</a>
+</nav>
+
+<div class="container">
+<div class="book-list">
+
+<div class="book" onclick="showDetail('Đắc Nhân Tâm','Dale Carnegie',90000,'Nghệ thuật giao tiếp.')"><img src="DACNHANTAM.jpg"><h4>Đắc Nhân Tâm</h4><p>Dale Carnegie</p><p class="price">90.000đ</p></div>
+<div class="book" onclick="showDetail('7 Thói Quen Hiệu Quả','Stephen Covey',120000,'Phát triển bản thân.')"><img src="7THOIQUEN.webp"><h4>7 Thói Quen Hiệu Quả</h4><p>Stephen Covey</p><p class="price">120.000đ</p></div>
+<div class="book" onclick="showDetail('Quẳng Gánh Lo Đi','Dale Carnegie',85000,'Sống tích cực.')"><img src="QUANGGANHLODI.jpg"><h4>Quẳng Gánh Lo Đi</h4><p>Dale Carnegie</p><p class="price">85.000đ</p></div>
+<div class="book" onclick="showDetail('Tư Duy Nhanh Và Chậm','Daniel Kahneman',150000,'Hiểu về tư duy.')"><img src="TUDUY.webp"><h4>Tư Duy Nhanh Và Chậm</h4><p>Daniel Kahneman</p><p class="price">150.000đ</p></div>
+<div class="book" onclick="showDetail('Nhà Giả Kim','Paulo Coelho',95000,'Theo đuổi ước mơ.')"><img src="NHAGIAKIM.jpg"><h4>Nhà Giả Kim</h4><p>Paulo Coelho</p><p class="price">95.000đ</p></div>
+<div class="book" onclick="showDetail('Sức Mạnh Tiềm Thức','Joseph Murphy',88000,'Khai phá nội lực.')"><img src="SUCMANHTIEMTHUC.webp"><h4>Sức Mạnh Tiềm Thức</h4><p>Joseph Murphy</p><p class="price">88.000đ</p></div>
+<div class="book" onclick="showDetail('Người Giàu Nhất Babylon','George Clason',76000,'Bí quyết tài chính.')"><img src="NGUOIGIAUNHATBABYLON.jpg"><h4>Người Giàu Nhất Babylon</h4><p>George Clason</p><p class="price">76.000đ</p></div>
+<div class="book" onclick="showDetail('Dám Nghĩ Lớn','David Schwartz',99000,'Tư duy thành công.')"><img src="DAMNGHILON.webp"><h4>Dám Nghĩ Lớn</h4><p>David Schwartz</p><p class="price">99.000đ</p></div>
+<div class="book" onclick="showDetail('Atomic Habits','James Clear',140000,'Xây dựng thói quen.')"><img src="ATOMIC.jpeg"><h4>Atomic Habits</h4><p>James Clear</p><p class="price">140.000đ</p></div>
+<div class="book" onclick="showDetail('Mindset','Carol Dweck',110000,'Tư duy phát triển.')"><img src="MINDSET.webp"><h4>Mindset</h4><p>Carol Dweck</p><p class="price">110.000đ</p></div>
+
+</div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeDetail()"></div>
+<div class="detail-box" id="detailBox"></div>
+
+<footer>© 2026 Nhà Sách Online</footer>
+
+<script>
+let currentBook=null;
+let overlay=document.getElementById("overlay");
+let detailBox=document.getElementById("detailBox");
+
+function showDetail(name,author,price,desc){
+currentBook={name,author,price};
+overlay.style.display="block";
+detailBox.style.display="block";
+detailBox.innerHTML=`<h2>${name}</h2><p><b>Tác giả:</b> ${author}</p><p><b>Giá:</b> ${price.toLocaleString()}đ</p><p>${desc}</p><button onclick="addToCart()">Thêm vào giỏ</button><button onclick="closeDetail()">Đóng</button>`;
+}
+function closeDetail(){overlay.style.display="none";detailBox.style.display="none";}
+function addToCart(){let cart=JSON.parse(localStorage.getItem("cart"))||[];cart.push(currentBook);localStorage.setItem("cart",JSON.stringify(cart));updateCartCount();alert("Đã thêm vào giỏ hàng!");}
+function updateCartCount(){let cart=JSON.parse(localStorage.getItem("cart"))||[];let count=cart.length;let badge=document.getElementById("cartCount");if(count>0){badge.innerText=count>99?"99+":count;}else{badge.innerText="";}}
+function showCart(){let cart=JSON.parse(localStorage.getItem("cart"))||[];let total=0;let message="Giỏ hàng:\n";cart.forEach(b=>{message+=b.name+" - "+b.price.toLocaleString()+"đ\n";total+=b.price;});message+="\nTổng tiền: "+total.toLocaleString()+"đ";alert(message);}
+updateCartCount();
+</script>
+</body>
+</html>

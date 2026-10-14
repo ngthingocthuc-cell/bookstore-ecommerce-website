@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sách Thiếu Nhi</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+body{font-family:Arial;margin:0;background:#f4f4f4}
+header{background:#2c3e50;color:#fff;text-align:center;padding:15px}
+nav{background:#34495e;text-align:center;padding:10px}
+nav a{color:#fff;text-decoration:none;margin:0 15px;font-weight:bold}
+nav a:hover{color:yellow}
+.container{width:95%;margin:auto;padding:20px}
+.book-list{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.book{background:#fff;padding:10px;border-radius:8px;box-shadow:0 0 5px gray;text-align:center;cursor:pointer;transition:0.3s}
+.book:hover{transform:scale(1.05)}
+.book img{width:100%;height:220px;object-fit:cover}
+.price{color:red;font-weight:bold}
+footer{background:#2c3e50;color:#fff;text-align:center;padding:10px;margin-top:20px}
+
+/* ==== CART GIỐNG TRANG VĂN HỌC ==== */
+.cart-link{position:relative;display:inline-block;font-size:22px;}
+.cart-count{
+position:absolute;
+top:-6px;
+right:-10px;
+background:#ff424f;
+color:white;
+font-size:11px;
+min-width:18px;
+height:18px;
+padding:0 5px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+border:2px solid #34495e;
+box-sizing:border-box;
+}
+.cart-count:empty{display:none;}
+
+.detail-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:20px;width:400px;box-shadow:0 0 10px black;display:none;z-index:1000;border-radius:10px;}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;}
+</style>
+</head>
+<body>
+
+<header><h1>SÁCH THIẾU NHI</h1></header>
+
+<nav>
+<a href="vanhoc.html">VĂN HỌC</a>
+<a href="kynang.html">KỸ NĂNG</a>
+<a href="kinhte.html">KINH TẾ</a>
+<a href="thieunhi.html">THIẾU NHI</a>
+
+<a href="#" onclick="showCart()" class="cart-link">
+<i class="fa-solid fa-cart-shopping"></i>
+<span id="cartCount" class="cart-count"></span>
+</a>
+</nav>
+
+<div class="container">
+<div class="book-list">
+
+<div class="book" onclick="showDetail('Dế Mèn Phiêu Lưu Ký','Tô Hoài',75000,'Cuộc phiêu lưu của chú Dế Mèn.')"><img src="DEMENPLK.jpg"><h4>Dế Mèn Phiêu Lưu Ký</h4><p>Tô Hoài</p><p class="price">75.000đ</p></div>
+
+<div class="book" onclick="showDetail('Hoàng Tử Bé','Antoine de Saint-Exupéry',85000,'Câu chuyện đầy ý nghĩa.')"><img src="HOANGTUBE.jpg"><h4>Hoàng Tử Bé</h4><p>Antoine de Saint-Exupéry</p><p class="price">85.000đ</p></div>
+
+<div class="book" onclick="showDetail('Harry Potter','J.K. Rowling',120000,'Phù thủy nhỏ tuổi nổi tiếng.')"><img src="HARYPOTTER.jpg"><h4>Harry Potter</h4><p>J.K. Rowling</p><p class="price">120.000đ</p></div>
+
+<div class="book" onclick="showDetail('Truyện Cổ Grimm','Anh Em Grimm',65000,'Những câu chuyện cổ tích nổi tiếng.')"><img src="TRUYENCOGRIMM.jpg"><h4>Truyện Cổ Grimm</h4><p>Anh Em Grimm</p><p class="price">65.000đ</p></div>
+
+<div class="book" onclick="showDetail('Cô Bé Lọ Lem','Nhiều Tác Giả',55000,'Câu chuyện cổ tích quen thuộc.')"><img src="COBELOLEM.webp"><h4>Cô Bé Lọ Lem</h4><p>Nhiều Tác Giả</p><p class="price">55.000đ</p></div>
+
+<div class="book" onclick="showDetail('Thám Tử Lừng Danh Conan','Gosho Aoyama',90000,'Bộ truyện trinh thám hấp dẫn.')"><img src="CONAN.jpg"><h4>Thám Tử Lừng Danh Conan</h4><p>Gosho Aoyama</p><p class="price">90.000đ</p></div>
+
+<div class="book" onclick="showDetail('Những Tấm Lòng Cao Cả','Edmondo De Amicis',80000,'Bài học về lòng nhân ái.')"><img src="NHUNGTAMLONGCAOCA_.jpg"><h4>Những Tấm Lòng Cao Cả</h4><p>Edmondo De Amicis</p><p class="price">80.000đ</p></div>
+
+<div class="book" onclick="showDetail('Kính Vạn Hoa','Nguyễn Nhật Ánh',95000,'Tuổi thơ hồn nhiên vui nhộn.')"><img src="KINHVANHOA.jpg"><h4>Kính Vạn Hoa</h4><p>Nguyễn Nhật Ánh</p><p class="price">95.000đ</p></div>
+
+<div class="book" onclick="showDetail('Chú Mèo Máy Doraemon','Fujiko F. Fujio',70000,'Những chuyến phiêu lưu kỳ thú.')"><img src="DOREMON.webp"><h4>Chú Mèo Máy Doraemon</h4><p>Fujiko F. Fujio</p><p class="price">70.000đ</p></div>
+
+<div class="book" onclick="showDetail('Không Gia Đình','Hector Malot',88000,'Hành trình cảm động của Remi.')"><img src="KHONGGIADINH.webp"><h4>Không Gia Đình</h4><p>Hector Malot</p><p class="price">88.000đ</p></div>
+
+</div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeDetail()"></div>
+<div class="detail-box" id="detailBox"></div>
+
+<footer>© 2026 Nhà Sách Online</footer>
+
+<script>
+let currentBook=null;
+let overlay=document.getElementById("overlay");
+let detailBox=document.getElementById("detailBox");
+
+function showDetail(name,author,price,desc){
+currentBook={name,author,price};
+overlay.style.display="block";
+detailBox.style.display="block";
+detailBox.innerHTML=`<h2>${name}</h2><p><b>Tác giả:</b> ${author}</p><p><b>Giá:</b> ${price.toLocaleString()}đ</p><p>${desc}</p><button onclick="addToCart()">Thêm vào giỏ</button><button onclick="closeDetail()">Đóng</button>`;
+}
+function closeDetail(){overlay.style.display="none";detailBox.style.display="none";}
+function addToCart(){let cart=JSON.parse(localStorage.getItem("cart"))||[];cart.push(currentBook);localStorage.setItem("cart",JSON.stringify(cart));updateCartCount();alert("Đã thêm vào giỏ hàng!");}
+function updateCartCount(){let cart=JSON.parse(localStorage.getItem("cart"))||[];let count=cart.length;let badge=document.getElementById("cartCount");if(count>0){badge.innerText=count>99?"99+":count;}else{badge.innerText="";}}
+function showCart(){let cart=JSON.parse(localStorage.getItem("cart"))||[];let total=0;let message="Giỏ hàng:\n";cart.forEach(b=>{message+=b.name+" - "+b.price.toLocaleString()+"đ\n";total+=b.price;});message+="\nTổng tiền: "+total.toLocaleString()+"đ";alert(message);}
+updateCartCount();
+</script>
+</body>
+</html>

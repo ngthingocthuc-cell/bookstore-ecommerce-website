@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sách Kinh Tế</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+body{font-family:Arial;margin:0;background:#f4f4f4}
+header{background:#2c3e50;color:#fff;text-align:center;padding:15px}
+nav{background:#34495e;text-align:center;padding:10px}
+nav a{color:#fff;text-decoration:none;margin:0 15px;font-weight:bold}
+nav a:hover{color:yellow}
+.container{width:95%;margin:auto;padding:20px}
+.book-list{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.book{background:#fff;padding:10px;border-radius:8px;box-shadow:0 0 5px gray;text-align:center;cursor:pointer;transition:0.3s}
+.book:hover{transform:scale(1.05)}
+.book img{width:100%;height:220px;object-fit:cover}
+.price{color:red;font-weight:bold}
+footer{background:#2c3e50;color:#fff;text-align:center;padding:10px;margin-top:20px}
+
+/* ==== CART GIỐNG TRANG VĂN HỌC ==== */
+.cart-link{position:relative;display:inline-block;font-size:22px;}
+.cart-count{
+position:absolute;
+top:-6px;
+right:-10px;
+background:#ff424f;
+color:white;
+font-size:11px;
+min-width:18px;
+height:18px;
+padding:0 5px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+border:2px solid #34495e;
+box-sizing:border-box;
+}
+.cart-count:empty{display:none;}
+
+.detail-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:20px;width:400px;box-shadow:0 0 10px black;display:none;z-index:1000;border-radius:10px;}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;}
+</style>
+</head>
+<body>
+
+<header><h1>SÁCH KINH TẾ</h1></header>
+
+<nav>
+<a href="vanhoc.html">VĂN HỌC</a>
+<a href="kynang.html">KỸ NĂNG</a>
+<a href="kinhte.html">KINH TẾ</a>
+<a href="thieunhi.html">THIẾU NHI</a>
+
+<a href="#" onclick="showCart()" class="cart-link">
+<i class="fa-solid fa-cart-shopping"></i>
+<span id="cartCount" class="cart-count"></span>
+</a>
+</nav>
+
+<div class="container">
+<div class="book-list">
+
+<div class="book" onclick="showDetail('Cha Giàu Cha Nghèo','Robert Kiyosaki',120000,'Bài học tài chính cá nhân.')"><img src="CHAGIAUCHANGHEO.jpg"><h4>Cha Giàu Cha Nghèo</h4><p>Robert Kiyosaki</p><p class="price">120.000đ</p></div>
+
+<div class="book" onclick="showDetail('Nhà Đầu Tư Thông Minh','Benjamin Graham',150000,'Nguyên tắc đầu tư giá trị.')"><img src="NHADAUTUTHONGMINH.webp"><h4>Nhà Đầu Tư Thông Minh</h4><p>Benjamin Graham</p><p class="price">150.000đ</p></div>
+
+<div class="book" onclick="showDetail('Nghĩ Giàu Làm Giàu','Napoleon Hill',110000,'Tư duy làm giàu thành công.')"><img src="NGHIGIAULAMGIAU.webp"><h4>Nghĩ Giàu Làm Giàu</h4><p>Napoleon Hill</p><p class="price">110.000đ</p></div>
+
+<div class="book" onclick="showDetail('Dạy Con Làm Giàu','Robert Kiyosaki',100000,'Giáo dục tài chính cho con.')"><img src="DAYCONLAMGIAU.jpg"><h4>Dạy Con Làm Giàu</h4><p>Robert Kiyosaki</p><p class="price">100.000đ</p></div>
+
+<div class="book" onclick="showDetail('Quốc Gia Khởi Nghiệp','Dan Senor',130000,'Câu chuyện khởi nghiệp Israel.')"><img src="QUOCGIAKHOINGHIEP.png"><h4>Quốc Gia Khởi Nghiệp</h4><p>Dan Senor</p><p class="price">130.000đ</p></div>
+
+<div class="book" onclick="showDetail('Từ Tốt Đến Vĩ Đại','Jim Collins',145000,'Chiến lược phát triển doanh nghiệp.')"><img src="TUTOTDENVIDAI.webp"><h4>Từ Tốt Đến Vĩ Đại</h4><p>Jim Collins</p><p class="price">145.000đ</p></div>
+
+<div class="book" onclick="showDetail('Trên Đỉnh Phố Wall','Peter Lynch',135000,'Kinh nghiệm đầu tư thực tế.')"><img src="TRENDINHPHOWALL.webp"><h4>Trên Đỉnh Phố Wall</h4><p>Peter Lynch</p><p class="price">135.000đ</p></div>
+
+<div class="book" onclick="showDetail('Khởi Nghiệp Tinh Gọn','Eric Ries',140000,'Phương pháp Lean Startup.')"><img src="KHOINGHIEPTINHGON.webp"><h4>Khởi Nghiệp Tinh Gọn</h4><p>Eric Ries</p><p class="price">140.000đ</p></div>
+
+<div class="book" onclick="showDetail('Người Giàu Có Nhất Thành Babylon','George Clason',90000,'Nguyên tắc quản lý tiền.')"><img src="NGUOIGIAUNHATBABYLON.jpg"><h4>Người Giàu Có Nhất Thành Babylon</h4><p>George Clason</p><p class="price">90.000đ</p></div>
+
+<div class="book" onclick="showDetail('Tỷ Phú Bán Giày','Tony Hsieh',125000,'Câu chuyện kinh doanh Zappos.')"><img src="TYPHUBANGIAY.webp"><h4>Tỷ Phú Bán Giày</h4><p>Tony Hsieh</p><p class="price">125.000đ</p></div>
+
+</div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeDetail()"></div>
+<div class="detail-box" id="detailBox"></div>
+
+<footer>© 2026 Nhà Sách Online</footer>
+
+<script>
+let currentBook=null;
+let overlay=document.getElementById("overlay");
+let detailBox=document.getElementById("detailBox");
+
+function showDetail(name,author,price,desc){
+currentBook={name,author,price};
+overlay.style.display="block";
+detailBox.style.display="block";
+detailBox.innerHTML=`<h2>${name}</h2><p><b>Tác giả:</b> ${author}</p><p><b>Giá:</b> ${price.toLocaleString()}đ</p><p>${desc}</p><button onclick="addToCart()">Thêm vào giỏ</button><button onclick="closeDetail()">Đóng</button>`;
+}
+function closeDetail(){overlay.style.display="none";detailBox.style.display="none";}
+function addToCart(){let cart=JSON.parse(localStorage.getItem("cart"))||[];cart.push(currentBook);localStorage.setItem("cart",JSON.stringify(cart));updateCartCount();alert("Đã thêm vào giỏ hàng!");}
+function updateCartCount(){let cart=JSON.parse(localStorage.getItem("cart"))||[];let count=cart.length;let badge=document.getElementById("cartCount");if(count>0){badge.innerText=count>99?"99+":count;}else{badge.innerText="";}}
+function showCart(){let cart=JSON.parse(localStorage.getItem("cart"))||[];let total=0;let message="Giỏ hàng:\n";cart.forEach(b=>{message+=b.name+" - "+b.price.toLocaleString()+"đ\n";total+=b.price;});message+="\nTổng tiền: "+total.toLocaleString()+"đ";alert(message);}
+updateCartCount();
+</script>
+</body>
+</html>
